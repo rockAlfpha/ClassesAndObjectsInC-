@@ -1,0 +1,401 @@
+###   METHODS   ##
+------------------------------------------------------
+Methods are function that belongs to the Class.
+
+There are two ways to define Methods
+-> Inside class Definition
+-> Outside class Definition
+
+1. Method inside class Definition->
+
+class MyClass {
+public:
+	void myMethod(){
+		cout<<"Hello there"<<endl;
+	}	
+
+};
+
+int main(){
+	MyClass myObj;
+	myObj.myMethod();
+	
+	return 0;
+
+}
+
+
+2. Method outside class Definition->
+
+class MyClass{
+public:
+	void MyMethod();
+
+};
+
+void MyClass::myMethod(){
+	cout<<"Hello world"<<endl;
+}
+
+
+int main(){
+	MyClass myObj;
+	myObj.myMethod();
+
+	return 0;
+}
+
+
+##### CONSTRUCTOR   #######
+-------------------------------------
+
+A constructor is a special method in c++ that is automatically called when
+an object of a class created.
+
+To create a constructor, use the same name as the class followed by 
+parantheses ();
+
+class MyClass{
+public:
+	MyClass(){
+		cout<<"Hello world"<<endl;
+	}
+};
+
+int main(){
+	MyClass myObj;
+	
+	return 0;
+}
+
+Constructor Parameters :
+
+Constructor can also take parameters(Just like regular functions).
+
+class Car{
+public:
+	string brand;
+	string model;
+	int year;
+	
+	Car(string b, string m, int y){
+		brand = b;
+		model = m;
+		year = y;
+	}
+};
+
+
+int main(){
+	// create car objects and call the constructor with different values
+	Car carObj1;("BMW", "X5", 1999);
+	Car carObj2("Ford", "Mustang", 1969);
+
+	// Printing the values
+	cout<<carObj1.brand<<" "<<carObj1.model<<" "<<carObj1.year<<endl;
+	cout<<carObj2.brand<<" "<<carObj2.model<<" "<<carObj2.year<<endl;	
+
+}
+
+
+######## Access Specifier ######
+-----------------------------------------
+
+Access specifiers defines how the members(attributes or methods)
+of a class can be accessed.
+
+In C++, there are three access specifier:
+1.public: - members are accesssiable from outside of the class.
+2.Private: - members cannot be accessed (or viewed) from outside the class.
+3.Protected: - members cannot be accessed from outside of the class
+they can be accessed in inherited classes.
+
+
+class MyClass {
+public:
+	int x;
+private:
+	int y;
+
+};
+
+int main(){
+	MyClass myObj;
+	myObj.x = 25;// Allowed(public)
+	myObj.y = 56;// not allowed(private)
+
+	return 0;
+}
+
+NOTE: By default, all members of a class are private if we don't
+specify an access specifier.
+
+*** Protected Access Specifier--->
+Protected specifier is similar to the private, but it can be accessed in the inherited class.
+
+#include<iostream>
+using namespace std;
+
+
+//Base class
+class Employee{
+protected:
+	int salary;
+};
+
+//Derived class
+
+class Programmer: public Employee{
+public:
+	int bonus;
+	void setSalary(int s){
+		salary = s;
+	}
+	
+	int getSalary(){
+		return salary;
+	}
+};
+
+
+
+int main()
+{	
+	Programmer myObj;
+	myObj.setSalary(1200000);
+	myObj.bonus = 18000;
+
+	cout<<"Salary: "<<myObj.getSalary();
+	cout<<"Bonus: "<<myObj.bonus;
+	return 0;
+
+}
+
+
+
+
+
+
+############# Encapsulation #########
+-----------------------------------------------------
+The meaning of encapsulation, is to make sure that "sensetive data"
+is hidden from the users. To acheive this, you must declare class
+variables/attributes as private.
+
+#include<iostream>
+using namespace std;
+
+class Employee{
+private:
+	// Private attribute
+	int salary;
+
+public:
+	// Setter
+	void setSalary(int s){
+		salary = s;
+	}	
+
+	// getter
+	int getSalary(){
+		return salary;
+	}
+};
+
+
+
+int main()
+{
+	Employee myObj;
+	myObj.setSalary(699999);
+	
+	cout<<myObj.getSalary():
+	return 0;
+
+}
+
+Explanation of the above code:
+
+The salary atribute is private, which have restricted access.
+The public setSalary() method takes parameter(s) and assigns it to
+the salary attribute (salary = s).
+The public getSalary() method returns the value of the private sallary
+attribute.
+
+Inside main(), we create an object of the Employee class. Now we can
+use the setSalary() method to set the value of the private attribute
+to 6999999. Then we call the getSalary() method on the object to
+return the value.
+
+Why Encapsulation:
+-> Encapsulation ensures better control of your data, because we
+change one part of code without affecting other parts;
+
+-> Increased security of Data.
+
+
+####### Inheritance #######
+------------------------------------------------
+
+In C++, it is possible to inherit attributes and methods from one class to another. 
+
+There are two category of Inheritance concept:
+1. Deived class (Child) - the class that inherit from another class.
+2. Base class (Paret) - the class being inherited from.
+
+To inherit from a class, use the symbol [:]
+
+In the example below, Car class(child) inherits attributes and methods from the vehicle class(parent).
+
+#include<iostream>
+using namespace std;
+
+class Vehicle{
+public:
+	string brand = "Ford";
+	void honk(){
+		cout<<"Tuut, tuut!"<<endl;
+	}
+};	
+
+class Car: public Vehicle{
+public:
+	string model = "Mustang";
+
+};
+
+int main(){
+	Car myCar;
+	myCar.honk();
+	cout<<myCar.brand + " " + mycar.model;
+	return 0;
+}
+
+Types of Inheritance -->
+1.Multilevel Inheritance
+2.Multiple Inheritance
+
+Multilevel Inheritance--->
+
+In multilevel inheritance developers derive a new class from the existing class.
+or(A class can also be derived from one class, which is already derived from another class).
+_________________________
+|class A{		|
+|..... ...... ......	|
+|{;			|
+|class B: public A{	|
+|...... ..... ...	|
+|};			|
+|class C: public B{	|
+|....... ....... ..	|
+|};			|
+-------------------------
+Here, class B is derived from the base class A and the class C is derived from the derived calss B.
+
+#include<iostream>
+using namespace std;
+
+class A{
+public:
+	void display(){
+		cout<<"Base class Content"<<endl;
+	}
+};
+
+class B: public A{
+
+};
+
+class C:public B{
+
+};
+
+int main()
+{
+	C objC;
+	objC.display();
+	return 0;
+
+}
+
+#### Multiple Inheritance ###
+-----------------------------
+A class can be derived from more than one base class, using
+a comma-seperated list.
+
+(A class can be derived from more than one parent).
+
+#include<iostream>
+using namespace std;
+
+class Mammal{
+public:
+	Mammal(){
+		cout<<"Mammal can give birth direct"<<endl;
+	}
+};
+
+class WingedAnimal{
+public:
+	WingedAnimal{
+		cout<<"Winged animals can flap"<<endl;
+	}
+};
+
+class Bat: public Mammal, public WingedAnimal{
+
+};
+
+int main()
+{
+	Bat b1;
+	return 0;
+}
+
+
+###### Polymorphism ##########
+-----------------------------------------
+Polymorphism means "Many Forms"
+
+It occurs when we have many classes that are related to each other by inheritance.
+
+Example:
+
+// Base Class
+class Animal{
+public:
+	void animalSound(){
+		cout<<"The animals make a sound"<<endl;
+	}
+};
+
+// Derived Class
+class Pig: public Animal{
+public:
+	void animalSound(){
+		cout<<"The pig says" weee weee"<<endl;
+	}
+
+};
+
+// Derived Class
+class Dog: public Animal{
+public:
+	void animalSound(){
+		cout<<"The Dog Says: bowww bowww"<<endl;
+	}
+};
+
+int main(){
+	Animal myAnimal;
+	Pig myPig;
+	Dog myDog;
+	myAnimal.animalSound();
+	myPig.animalSound();
+	myDog.animalSound();
+
+	return 0;
+
+
+}
+
